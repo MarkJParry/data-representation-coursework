@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
-  <book category="technical">
+  <book catalogue="technical">
 	<isbn>9780060589462</isbn>
     <title>Zen and the art of motorcycle maintenance</title>
     <author>Robert M.Pirsig</author>
   </book>
-  <book category="technical">
+  <book catalogue="technical">
 	<isbn>9781541618510</isbn>
     <title>The Art of Statistics</title>
     <author>David Spiegelhalter</author>
   </book>
-  <book category="cookery">
+  <book catalogue="cookery">
   	<isbn> 9780718149086</isbn>
     <title>Hairy Bikers Cookbook</title>
     <author>Michael Joseph</author>
   </book>
-  <book category="cookery">
+  <book catalogue="cookery">
   	<isbn>9780609603222</isbn>
     <title>Cooking With the Two Fat Ladies</title>
     <author>Clarissa Dickson Wright</author>

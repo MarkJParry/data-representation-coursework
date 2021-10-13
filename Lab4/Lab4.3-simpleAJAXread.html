@@ -1,0 +1,33 @@
+<!DOCTYPE=html>
+<!-- Student: Mark Parry -->
+<!-- ID: G00398271 -->
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<title>Lab4.3-simpleAJAXread</title>
+</head>
+<body>
+    <button onclick="AJAXread()">go</button>
+    <input id="euro" type="text">
+<script>
+    function AJAXread()
+    {
+
+        $.ajax(
+            {"url": "http://api.coindesk.com/v1/bpi/currentprice.json ", 
+            "method":"GET", 
+            "data":"", 
+            "dataType": "JSON", 
+            "success":function(result)
+                { console.log(result); }, 
+            "error":function(xhr,status,error)
+            { console.log("error: "+status+" msg:"+error); } 
+            });
+            
+        var eur_rate = result.bpi.EUR.rate
+        console.log(eur_rate);
+        document.getElementById("euro").innerText = eur_rate;
+    }
+</script>
+</body>
+</html>

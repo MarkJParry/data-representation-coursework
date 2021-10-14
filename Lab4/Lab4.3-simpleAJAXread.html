@@ -8,7 +8,7 @@
 </head>
 <body>
     <button onclick="AJAXread()">go</button>
-    <input id="euro" type="text">
+    <input type="text" id="euro" value="">
 <script>
     function AJAXread()
     {
@@ -19,14 +19,14 @@
             "data":"", 
             "dataType": "JSON", 
             "success":function(result)
-                { console.log(result); }, 
+                { 
+				  var eurrate = result.bpi.EUR.rate;
+				  console.log(eurrate);
+				  document.getElementById("euro").value = eurrate;
+				}, 
             "error":function(xhr,status,error)
             { console.log("error: "+status+" msg:"+error); } 
             });
-            
-        var eur_rate = result.bpi.EUR.rate
-        console.log(eur_rate);
-        document.getElementById("euro").innerText = eur_rate;
     }
 </script>
 </body>

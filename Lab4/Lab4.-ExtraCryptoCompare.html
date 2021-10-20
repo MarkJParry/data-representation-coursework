@@ -7,28 +7,28 @@
 	<title>Lab4.3-simpleAJAXread</title>
 </head>
 <body>
-	Euro:<input type="text" id="euro" value="">
+	<!--Euro:<input type="text" id="euro" value="">-->
 	Usd :<input type="text" id="usd" value="">
-	GBP :<input type="text" id="gbp" value="">
+	<!--GBP :<input type="text" id="gbp" value="">-->
 		<button onclick="AJAXread()">go</button>
 <script>
     function AJAXread()
     {
 
         $.ajax(
-            {"url": "http://api.coindesk.com/v1/bpi/currentprice.json ", 
+            {"url": "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=BTC,USD,EUR", 
             "method":"GET", 
             "data":"", 
             "dataType": "JSON", 
             "success":function(result)
                 { 
-				  var eurrate = result.bpi.EUR.rate;
-				  var usdrate = result.bpi.USD.rate;
-				  var gbprate = result.bpi.GBP.rate;
-				  console.log("euro = " + eurrate + "usd = " + usdrate + "gbp = " + gbprate);
-				  document.getElementById("euro").value = eurrate;
+				  //var eurrate = result.bpi.EUR.rate;
+				  var usdrate = result.USD;
+				  //var gbprate = result.bpi.GBP.rate;
+				  console.log("usd = " + usdrate);
+				  //document.getElementById("euro").value = eurrate;
 				  document.getElementById("usd").value = usdrate;
-				  document.getElementById("gbp").value = gbprate;				  
+				  //document.getElementById("gbp").value = gbprate;				  
 				}, 
             "error":function(xhr,status,error)
             { console.log("error: "+status+" msg:"+error); } 

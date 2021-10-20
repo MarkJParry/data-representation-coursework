@@ -1,0 +1,144 @@
+<html>
+    <head> 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <title> test get all </title>
+        <style>
+            table, th, td {
+            border: 1px solid black;
+            }		
+        </style>
+    </head> 
+    <body> 
+        <button onclick="testRead()">testRead</button> 
+        <button onclick="testCreate()">testCreate</button> 
+        <button onclick="testUpdate()">testUpdate</button> 
+        <button onclick="testDelete()">testDelete</button> 
+        <div id="output"></div> 
+        <table id="carTable"> 
+            <tr> 
+                <th>reg</th>
+                <th>make</th>
+                <th>model</th>
+                <th>price</th>
+                <th>update</th>
+                <th>delete</th> 
+            </tr> 
+        </table> 
+    </body>
+    <script> 
+    function addCarToTable(car){
+        console.log(car)
+		var tableElement = document.getElementById('carTable')
+		var rowElement = tableElement.insertRow(-1)
+		var cell1 = rowElement.insertCell(0)
+		var cell2 = rowElement.insertCell(1)
+		var cell3 = rowElement.insertCell(2)
+		var cell4 = rowElement.insertCell(3)
+		var cell5 = rowElement.insertCell(4)
+		var cell6 = rowElement.insertCell(5)
+		
+		cell1.innerHTML = car.reg
+		cell2.innerHTML = car.make
+		cell3.innerHTML = car.model
+		cell4.innerHTML = car.price
+		cell5.innerHTML = '<button onclick="showUpdate(this)">Update</button>'
+		cell6.innerHTML = '<button onclick="doDelete(this)">Delete</button>'
+
+        rowElement.setAttribute("id", car.reg)
+		}
+
+    function testRead(){ 
+            $.ajax(
+                    { 
+                    "url": "http://127.0.0.1:5000/cars", 
+                    "method":"GET", 
+                    "data":"", 
+                    "dataType": "JSON", 
+                    "success":function(result)
+                        { 
+                        console.log(result); 
+                        for (car in result.cars)
+                           {addCarToTable(result.cars[car])};
+                        }, 
+                    "error":function(xhr,status,error)
+                        { 
+                        console.log("error: "+status+" msg:"+error); 
+                        } 
+                    }
+                ); 
+        } 
+    
+    function testCreate(){
+        var car = {"reg":"12 D 1234","make":"Fiat","model":"Punto","price":3000} 
+        console.log(JSON.stringify(car));
+        $.ajax(
+                { 
+                "url": "http://127.0.0.1:5000/cars", 
+                "method":"POST", "data":JSON.stringify(car), 
+                "dataType": "JSON", 
+                contentType: "application/json; charset=utf-8", 
+                "success":function(result)
+                    { 
+                    console.log(result); 
+                    document.getElementById("output").innerText = JSON.stringify(result);
+                    addCarToTable(car);
+                    }, 
+                "error":function(xhr,status,error)
+                    {
+                    console.log("error: "+status+" msg:"+error); 
+                    } 
+                }
+                ); 
+            }
+
+    function testUpdate(){
+        var car = {"reg":"181 G 1234","make":"Ford","model":"Modeo","price":00} 
+        console.log(JSON.stringify(car));
+        console.log(encodeURI(car.reg));
+        $.ajax(
+                { 
+                "url": "http://127.0.0.1:5000/cars/"+encodeURI(car.reg), 
+                "method":"PUT", 
+                "data":JSON.stringify(car), 
+                "dataType": "JSON", 
+                contentType: "application/json; charset=utf-8", 
+                "success":function(result)
+                    { 
+                    console.log(result); 
+                    document.getElementById("output").innerText = JSON.stringify(result);
+                    ///addCarToTable(car);
+                    }, 
+                "error":function(xhr,status,error)
+                    {
+                    console.log("error: "+status+" msg:"+error); 
+                    } 
+                }
+                ); 
+            }
+
+function testDelete(){
+        var car = {"reg":"181 G 1234"} 
+        console.log(JSON.stringify(car));
+        console.log(encodeURI(car.reg));
+        $.ajax(
+                { 
+                "url": "http://127.0.0.1:5000/cars/"+encodeURI(car.reg), 
+                "method":"DELETE", 
+                "data":JSON.stringify(car), 
+                "dataType": "JSON", 
+                contentType: "application/json; charset=utf-8", 
+                "success":function(result)
+                    { 
+                    console.log(result); 
+                    document.getElementById("output").innerText = JSON.stringify(result);
+                    ///addCarToTable(car);
+                    }, 
+                "error":function(xhr,status,error)
+                    {
+                    console.log("error: "+status+" msg:"+error); 
+                    } 
+                }
+                ); 
+            }
+    </script> 
+</html>
